@@ -64,6 +64,6 @@
 
 ---
 
-![diagram.jpg](SpringLibrary)
+![diagram.jpg](https://github.com/OleksandrDn/SpringLibrary/blob/master/diagram.jpg)
 
 
