@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books List</title>
+    <title>Author Details</title>
 </head>
 <body>
-<h1>Books</h1>
+<h1 th:text="${author.name}">Author Name</h1>
+<p>Biography: <span th:text="${author.biography}">Author Biography</span></p>
+<h2>Books by this Author</h2>
 <ul>
-    <!-- Loop through the books and display them -->
+    <!-- Loop through the author's books and display them -->
     <th:block th:each="book : ${books}">
         <li>
             <a th:href="@{/books/{id}(id=${book.id})}" th:text="${book.title}">Book Title</a>
         </li>
     </th:block>
 </ul>
-<a href="/">Home</a>
+<a href="/authors">Back to Authors</a>
 </body>
 </html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details</title>
+</head>
+<body>
+<h1 th:text="${book.title}">Book Title</h1>
+<p>Author: <span th:text="${book.author.name}">Author Name</span></p>
+<p>Genre: <span th:text="${book.genre.name}">Genre Name</span></p>
+<p>Description: <span th:text="${book.description}">Book Description</span></p>
+<a href="/books">Back to Books</a>
+</body>
+</html>

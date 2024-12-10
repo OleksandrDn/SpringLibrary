@@ -16,7 +16,7 @@ import java.util.List;
 public class BookController {
 
     private final BookService bookService;
-//    private final BookSearchService bookSearchService;
+
 
 
     // Створення нової книги
@@ -54,9 +54,5 @@ public class BookController {
         return ResponseEntity.noContent().build();
     }
 
-    // Пошук книг за назвою, автором або жанром
-//    @GetMapping("/search")
-//    public ResponseEntity<List<BookDTO>> searchBooks(@RequestParam String query) {
-//        return new ResponseEntity<>(bookSearchService.searchBooks(query), HttpStatus.OK);
-//    }
+
 }

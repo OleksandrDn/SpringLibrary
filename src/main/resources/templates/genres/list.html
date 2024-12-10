@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books List</title>
+    <title>Genres List</title>
 </head>
 <body>
-<h1>Books</h1>
+<h1>Genres</h1>
 <ul>
-    <!-- Loop through the books and display them -->
-    <th:block th:each="book : ${books}">
+    <!-- Loop through the genres and display them -->
+    <th:block th:each="genre : ${genres}">
         <li>
-            <a th:href="@{/books/{id}(id=${book.id})}" th:text="${book.title}">Book Title</a>
+            <a th:href="@{/genres/{id}(id=${genre.id})}" th:text="${genre.name}">Genre Name</a>
         </li>
     </th:block>
 </ul>

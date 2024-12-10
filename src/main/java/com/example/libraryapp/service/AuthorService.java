@@ -7,6 +7,7 @@ import com.example.libraryapp.mapper.AuthorMapper;
 import com.example.libraryapp.mapper.BookMapper;
 import com.example.libraryapp.repository.AuthorRepository;
 import com.example.libraryapp.repository.BookRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,49 +18,48 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class AuthorService {
-    private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     private final AuthorMapper authorMapper;
+    private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
 
-    // Створення нового автора
+    @Transactional
     public AuthorDTO create(AuthorDTO dto) {
+        // Перевірка на унікальність імені автора
+        if (authorRepository.findByNameIgnoreCase(dto.getName()).isPresent()) {
+            throw new RuntimeException("Автор з таким ім'ям вже існує");
+        }
+
         Author author = authorMapper.toEntity(dto);
         Author savedAuthor = authorRepository.save(author);
         return authorMapper.toDto(savedAuthor);
     }
 
-    // Отримання списку всіх авторів
     public List<AuthorDTO> readAll() {
         return authorRepository.findAll().stream()
                 .map(authorMapper::toDto)
                 .collect(Collectors.toList());
     }
 
-    // Пошук автора за ID
     public Optional<AuthorDTO> readById(Long id) {
         return authorRepository.findById(id)
                 .map(authorMapper::toDto);
     }
 
-    // Пошук авторів за ім'ям
     public List<AuthorDTO> findByName(String name) {
         return authorRepository.findByNameContainingIgnoreCase(name).stream()
                 .map(authorMapper::toDto)
                 .collect(Collectors.toList());
     }
 
-    // Оновлення інформації про автора
+    @Transactional
     public AuthorDTO update(AuthorDTO authorDTO) {
         Optional<Author> existingAuthorOptional = authorRepository.findById(authorDTO.getId());
 
         if (existingAuthorOptional.isPresent()) {
             Author existingAuthor = existingAuthorOptional.get();
-
-            // Оновлення полів автора
             existingAuthor.setName(authorDTO.getName());
-            // Додайте інші поля, які потрібно оновити
 
             Author updatedAuthor = authorRepository.save(existingAuthor);
             return authorMapper.toDto(updatedAuthor);
@@ -68,16 +68,18 @@ public class AuthorService {
         }
     }
 
-    // Видалення автора
+    @Transactional
     public void delete(Long id) {
-        // Перевірка чи існує автор перед видаленням
         if (!authorRepository.existsById(id)) {
             throw new RuntimeException("Автор з ID " + id + " не знайдений");
         }
         authorRepository.deleteById(id);
     }
 
+
     public List<BookDTO> findBooksByAuthorName(String authorName) {
-        return bookRepository.findBooksByAuthorNameAsDTO(authorName, bookMapper);
+        return bookRepository.findByAuthor_NameIgnoreCase(authorName).stream()
+                .map(bookMapper::toDto)
+                .collect(Collectors.toList());
     }
 }

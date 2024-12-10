@@ -66,8 +66,8 @@ public class AuthorController {
         return new ResponseEntity<>(bookService.findBooksByAuthorId(id), HttpStatus.OK);
     }
 
-    @GetMapping("/books")
-    public ResponseEntity<List<BookDTO>> getBooksByAuthorName(@RequestParam String name) {
-        return new ResponseEntity<>(authorService.findBooksByAuthorName(name), HttpStatus.OK);
+    @GetMapping("/books/{authorName}")
+    public ResponseEntity<List<BookDTO>> getBooksByAuthorName(@PathVariable String authorName) {
+        return new ResponseEntity<>(authorService.findBooksByAuthorName(authorName), HttpStatus.OK);
     }
 }

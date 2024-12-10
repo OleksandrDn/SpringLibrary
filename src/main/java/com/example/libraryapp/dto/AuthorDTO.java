@@ -1,16 +1,14 @@
 package com.example.libraryapp.dto;
 
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class AuthorDTO {
     private Long id;
+
+    @NotBlank(message = "Ім'я автора не може бути порожнім")
+    @Size(min = 2, max = 100, message = "Ім'я автора має бути від 2 до 100 символів")
     private String name;
-    // Додайте інші поля, якщо потрібно, наприклад:
-    // private String biography;
-    // private LocalDate birthDate;
 }

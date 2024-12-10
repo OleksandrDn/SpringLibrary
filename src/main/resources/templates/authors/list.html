@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authors List</title>
+</head>
+<body>
+<h1>Authors</h1>
+<ul>
+    <!-- Loop through the authors and display them -->
+    <th:block th:each="author : ${authors}">
+        <li>
+            <a th:href="@{/authors/{id}(id=${author.id})}" th:text="${author.name}">Author Name</a>
+        </li>
+    </th:block>
+</ul>
+<a href="/">Home</a>
+</body>
+</html>

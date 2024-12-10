@@ -57,7 +57,7 @@ public class GenreController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{genreName}/books")
+    @GetMapping("/books/{genreName}")
     public ResponseEntity<List<BookDTO>> getBooksByGenreName(@PathVariable String genreName) {
         return new ResponseEntity<>(genreService.findBooksByGenreName(genreName), HttpStatus.OK);
     }

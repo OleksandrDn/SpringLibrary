@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -38,5 +39,12 @@ public interface BookRepository extends JpaRepository<Book, Long> {
                 .map(bookMapper::toDto)
                 .collect(Collectors.toList());
     }
+    //Метод для перевірки унікальності книги за назвою та іменем автора
+    Optional<Book> findByTitleIgnoreCaseAndAuthor_NameIgnoreCase(String title, String authorName);
+
+    List<Book> findByAuthor_Id(Long authorId);
+    List<Book> findByAuthor_NameIgnoreCase(String authorName);
+    List<Book> findByGenre_NameIgnoreCase(String genreName);
+
 }
 
